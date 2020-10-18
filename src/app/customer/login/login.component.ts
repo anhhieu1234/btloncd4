@@ -1,7 +1,7 @@
 import { BaseComponent } from '../../lib/base-component';
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent extends BaseComponent implements OnInit {
   public registerForm: FormGroup;
   public loginForm: FormGroup;
-  constructor(injector: Injector) { 
+  constructor(injector: Injector,public  router: Router) { 
     super(injector);
   }
 
@@ -38,6 +38,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     this._api.post('/api/KH/create-item', {customer_email:value.email, customer_password:value.password} ).takeUntil(this.unsubscribe).subscribe(res => {
      alert('Tạo thành công');
+     this.router.navigate(['']);
       }, err => { });      
 
   }

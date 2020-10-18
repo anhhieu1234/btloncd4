@@ -12,6 +12,7 @@ import 'rxjs/add/operator/takeUntil';
 export class MainComponent extends BaseComponent implements OnInit {
   list_item:any;
   list_item_moi:any;
+  list_item_khuyenmai:any;
   constructor(injector: Injector) { 
     super(injector);
   }
@@ -29,6 +30,14 @@ export class MainComponent extends BaseComponent implements OnInit {
       this._api.get('/api/sanpham/get-moi'),
     ).takeUntil(this.unsubscribe).subscribe(res => {
       this.list_item_moi = res[0];
+      setTimeout(() => {
+        this.loadScripts();
+      });
+    }, err => { });
+    Observable.combineLatest(
+      this._api.get('/api/sanpham/get-khuyenmai'),
+    ).takeUntil(this.unsubscribe).subscribe(res => {
+      this.list_item_khuyenmai = res[0];
       setTimeout(() => {
         this.loadScripts();
       });
